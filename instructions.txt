@@ -1,3 +1,36 @@
+Pseudo-code for push swap
+
+1. Handle input count errors.
+	- Argument count must be 2 or more and the second input must not be empty
+	- If input errors, return error
+2. Handle both cases of input, whether a variable number of command line arguments, or as a string
+	- If the input of numbers is as a string, call ft_split() to split the subtrings.
+
+3. Handle integer overflow, duplicates, and syntax errors, e.g. input must only contain digits or
+'-' '+' signs
+	- If errors found, free stack 'a' and return error
+4. Check for each input, if it is a long integer
+	- If the input is a string, convert it to a long integer
+5. After these checks the nodes can be appended to stack a
+
+6. Check if stack a is sorted
+	- if not sorted, implement our sorting algorithm
+		- Check for 2 numbers
+			- if so, simply swap the numbers
+		- Check for 3 numbers
+			- If so, implement our simple sort 3 algorithm
+		- Check if the stack has more than 3 numbers
+			- If so, implement our Turk algorithm
+
+Basic utilities
+ - Functions to handle errors
+ - Functions to do the operations (swap, rotate etc..)
+ - Functions to find stack length
+ - Functions to find the last node
+ - Functions to find min and max node
+
+
+
 Push swap (Turk)  algorithm instructions
 
 In overall push nodes from stack a to stack b until there is only 3 nodes left in stack a.
