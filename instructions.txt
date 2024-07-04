@@ -1,0 +1,50 @@
+Push swap (Turk)  algorithm instructions
+
+In overall push nodes from stack a to stack b until there is only 3 nodes left in stack a.
+Durin each push, stack b is sorted in descending order.
+
+Step 1. When stack b is empty push the first 2 nodes from stack without checking anything.
+But if we have only for 4 nodes in stack a we would push only one node
+to stack b because after this we have only 3 nodes in stack a
+
+Step 2. (Target nodes) 
+
+Look for every stack a node a target node from stack b.
+Target node is the closest smaller number the a node.
+If no closest smaller number is found, then the target node is the 
+"max" value in stack b.
+(Each time we push a node from stack a to stack b we are sorting
+ stack b to descending order, thats why when push a node to stack b
+ we need to make sure that a node has larger value than top of b)
+
+Step 3. (Cost analysis) We need to calculate which a node to push to stack b which node is the "cheapest" to push to stack b
+The formula is:
+Sum:
+how many operations to bring a node on top 
++ how many operations to bring a nodes->target node on top 
+= push cost
+if push cost is zero we do not need to calculate the push costs
+of the rest nodes because it is already the minimum push cost what 
+we can have.
+
+Step 4. (Sort three in ascending order) When we have only 3 nodes left in stack a
+- How to do it? Make sure that the biggest number is on the bottom
+and if we need to we just simply swap the first two nodes of stack a
+Step 5. (Now push back to stack a from b stack until b is empty)
+- Only requirement is that before pushing from stack b to stack a 
+make sure that the pushed node from stack b is pushed on top of the correct node in stack a
+- Every b node needs a target node from stack a.
+- Target node is node which has the "closest bigger value" 
+or if no "closest bigger value" its target node will be the minimum value
+of stack a.
+- if the target node is not on top of stack a use the median calculation
+- calculate median value which is the line of stack a
+- if target node is above median it takes less instructions if we rotate
+and if target node is lower the median it takes less instructions to reverse rotate to bring
+on top.
+
+Step 5. Finally check the min number of stack a it will either be
+above or below the median line. So we rotate or reverse rotate according
+to the median. Until the min number is on top of stack a.
+
+
