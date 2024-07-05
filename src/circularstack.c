@@ -6,15 +6,10 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 06:15:38 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 06:15:41 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/05 09:57:50 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "includes/push_swap.h"
-
-void	free_stack(t_circularstack *stack)
-{
-	free(stack->array);
-}
 
 int	is_empty(t_circularstack *stack)
 {
@@ -36,7 +31,7 @@ void	push(t_circularstack *stack, int value)
 	{
 		//do some error handling
 	}
-	stack->array[stack->end] = value;
+	stack->array[stack->end].value = value;
 	stack->end = (stack->end + 1) % stack->capacity;
 	stack->size++;
 }
@@ -54,13 +49,13 @@ int	pop(t_circularstack *stack)
 	return (value);
 }
 
-void	swap(t_circularstack *stack, int index1, int index2)
+void	swap(t_circularstack *stack)
 {
-	int	temp;
+	t_node	temp;
 
-	temp = stack->array[index1];
-	stack->array[index1] = stack->array[index2];
-	stack->array[index2] = temp;
+	temp = stack->array[0];
+	stack->array[0] = stack->array[0];
+	stack->array[1] = temp;
 }
 
 void	rotate(t_circularstack *stack)

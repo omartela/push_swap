@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 06:15:08 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 07:13:59 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/05 08:20:05 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -44,7 +44,7 @@ int	init_stack(t_circularstack *stack, int capacity)
 
 void	init_stack_a(t_circularstack *stack, char **str)
 {
-	int		n;
+	long	n;
 	int		i;
 
 	i = 0;
@@ -56,12 +56,17 @@ void	init_stack_a(t_circularstack *stack, char **str)
 			return ;
 		}
 		n = ft_atoi(str[i]);
-		if (n == 0 || n == 1)
+		if (n > INT_MAX || n < INT_MIN)
 		{
 			free_stack(stack);
 			return ;
 		}
-		add_node(stack, n);
+		if (error_duplicate(stack, n))
+		{
+			free_stack(stack);
+			return ;
+		}
+		add_node(stack, (int)n);
 		i++;
 	}
 }
