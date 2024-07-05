@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 06:15:38 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 09:57:50 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/05 23:22:28 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "includes/push_swap.h"
@@ -25,13 +25,13 @@ int	is_full(t_circularstack *stack)
 	return (0);
 }
 
-void	push(t_circularstack *stack, int value)
+void	push(t_circularstack *stack, t_node *node)
 {
 	if (is_full(stack))
 	{
 		//do some error handling
 	}
-	stack->array[stack->end].value = value;
+	stack->array[stack->end] = *node;
 	stack->end = (stack->end + 1) % stack->capacity;
 	stack->size++;
 }

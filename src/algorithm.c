@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:06:23 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 16:53:31 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/05 22:57:27 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
@@ -106,6 +106,11 @@ void	init_nodes_a(t_circularstack *a, t_circularstack *b)
 	set_cheapest(a);
 }
 
+void	move_stack_a_to_b(t_circularstack *a, t_circularstack *b)
+{
+
+}
+
 void	sort_stacks(t_circularstack *a, t_circularstack *b)
 {
 	int	i;
@@ -117,9 +122,12 @@ void	sort_stacks(t_circularstack *a, t_circularstack *b)
 		pb(b, a);
 	while (a->size > 3 && !is_sorted(a))
 	{
+		init_nodes_a(a, b);
+		move_stack_a_to_b(a, b);
 	}
 	sort_three(a);
 	while (i < a->end)
 	{
+
 	}
 }
