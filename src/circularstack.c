@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   circularstack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omartela <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/04 15:58:45 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/04 16:52:49 by omartela         ###   ########.fr       */
+/*   Created: 2024/07/05 06:15:38 by omartela          #+#    #+#             */
+/*   Updated: 2024/07/05 06:15:41 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "includes/push_swap.h"
