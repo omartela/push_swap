@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 06:15:08 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 08:20:05 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:10:33 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -26,6 +26,7 @@ int	add_node(t_circularstack *stack, int n)
 	stack->end += (stack->end + 1) % stack->capacity;
 	node.value = n;
 	stack->array[stack->end] = node;
+	node.index = stack->end;
 	stack->size++;
 	return (1);
 }

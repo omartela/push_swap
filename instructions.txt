@@ -43,7 +43,7 @@ to stack b because after this we have only 3 nodes in stack a
 Step 2. (Target nodes) 
 
 Look for every stack a node a target node from stack b.
-Target node is the closest smaller number the a node.
+Target node is the closest smaller number to a node.
 If no closest smaller number is found, then the target node is the 
 "max" value in stack b.
 (Each time we push a node from stack a to stack b we are sorting

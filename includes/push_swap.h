@@ -6,7 +6,7 @@
 /*   By: omartela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 15:49:54 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 10:04:13 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:30:07 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -46,5 +46,6 @@ int		is_full(t_circularstack *stack);
 int		is_sorted(t_circularstack *stack);
 int		sort_three(t_circularstack *stack);
 t_node	*find_min(t_circularstack *stack);
+t_node	*find_max(t_circularstack *stack);
 
 #endif

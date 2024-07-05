@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 07:56:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 10:08:54 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:32:12 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
@@ -47,21 +47,31 @@ int	ft_atol(const char *str)
 	return (atol);
 }
 
+t_node	*find_max(t_circularstack *stack)
+{
+	int		i;
+	t_node	*max;
+
+	*max = stack->array[0];
+	i = 1;
+	while (i < stack->end)
+	{
+		if (stack->array[i - 1].value > max->value)
+			*max = stack->array[i - 1];
+	}
+	return (max);
+}
+
 int	sort_three(t_circularstack *stack)
 {
-	t_node	max;
+	t_node	*max;
 	int		i;
 
 	i = 1;
-	max = stack->array[0];
-	while (i < stack->end)
-	{
-		if (stack->array[i - 1].value > max.value)
-			max = stack->array[i - 1];
-	}
-	if (max.index == 0)
+	max = find_max(stack);
+	if (max->index == 0)
 		rotate(stack);
-	if (max.index == 1)
+	if (max->index == 1)
 		reverse_rotate(stack);
 	if (stack->array[0].value > stack->array[1].value)
 		swap(stack);
