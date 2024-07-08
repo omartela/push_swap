@@ -6,10 +6,10 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:06:23 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/08 12:17:48 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:35:38 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/push_swap.h"
+
 
 void	set_median(t_circularstack *a)
 {
@@ -115,7 +115,7 @@ void	set_cheapest(t_circularstack *a)
 {
 	long	min_push_cost;
 	int		i;
-	t_node	min_node;
+	t_node	*min_node;
 
 	if (is_empty(a))
 		return ;
@@ -127,11 +127,11 @@ void	set_cheapest(t_circularstack *a)
 		if (a->array[i].push_cost < min_push_cost)
 		{
 			min_push_cost = a->array[i].push_cost;
-			min_node = a->array[i];
+			min_node = &a->array[i];
 		}
 		++i;
 	}
-	min_node.cheapest = 1;
+	min_node->cheapest = 1;
 }
 
 void	init_nodes_a(t_circularstack *a, t_circularstack *b)
@@ -149,7 +149,7 @@ t_node	*get_cheapest_node(t_circularstack *a)
 	t_node	*cheapest;
 
 	i = 0;
-	cheapest = NULL;
+	cheapest = a->array[i];
 	while (i < a->size)
 	{
 		if (a->array[i].cheapest == 1)
