@@ -6,7 +6,7 @@
 /*   By: omartela <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 15:49:54 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 11:30:07 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:00:17 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include "../src/libft/libft.h"
+# include "../src/ft_printf/ft_printf.h"
 
 typedef struct s_node
 {
@@ -47,5 +48,10 @@ int		is_sorted(t_circularstack *stack);
 int		sort_three(t_circularstack *stack);
 t_node	*find_min(t_circularstack *stack);
 t_node	*find_max(t_circularstack *stack);
+void	sb(t_circularstack *b);
+void	sa(t_circularstack *a);
+void	ss(t_circularstack *a, t_circularstack *b);
+void	pa(t_circularstack *a, t_circularstack *b);
+void	pb(t_circularstack *a, t_circularstack *b);
 
 #endif
