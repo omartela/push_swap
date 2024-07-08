@@ -6,10 +6,10 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 06:15:38 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 23:22:28 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:03:59 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "includes/push_swap.h"
+#include "../includes/push_swap.h"
 
 int	is_empty(t_circularstack *stack)
 {
@@ -36,17 +36,19 @@ void	push(t_circularstack *stack, t_node *node)
 	stack->size++;
 }
 
-int	pop(t_circularstack *stack)
+t_node	*pop(t_circularstack *stack)
 {
-	int	value;
+	t_node	*node;
 
+	node = NULL;
 	if (is_empty(stack))
 	{
 		// do some error handlind
 	}
+	*node = stack->array[stack->start];
 	stack->start = (stack->start + 1) % stack->capacity;
 	stack->size--;
-	return (value);
+	return (node);
 }
 
 void	swap(t_circularstack *stack)

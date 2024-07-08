@@ -6,10 +6,10 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:06:23 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/08 12:35:38 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:10:54 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "../includes/push_swap.h"
 
 void	set_median(t_circularstack *a)
 {
@@ -94,7 +94,7 @@ static void	set_target_b(t_circularstack *a, t_circularstack *b)
 	}
 }
 
-void	calculate_push_cost_a(t_circularstack *a, t_circularstack *b)
+void	calculate_push_cost_a(t_circularstack *a)
 {
 	int	i;
 
@@ -139,7 +139,7 @@ void	init_nodes_a(t_circularstack *a, t_circularstack *b)
 	set_median(a);
 	set_median(b);
 	set_target_a(a, b);
-	calculate_push_cost_a(a, b);
+	calculate_push_cost_a(a);
 	set_cheapest(a);
 }
 
@@ -149,7 +149,8 @@ t_node	*get_cheapest_node(t_circularstack *a)
 	t_node	*cheapest;
 
 	i = 0;
-	cheapest = a->array[i];
+	cheapest = NULL;
+	*cheapest = a->array[i];
 	while (i < a->size)
 	{
 		if (a->array[i].cheapest == 1)
@@ -205,10 +206,10 @@ void	move_node_a_to_b(t_circularstack *a, t_circularstack *b)
 		&& !(cheapest->target_node->above_median))
 		rev_rotate_both(a, b, cheapest);
 	prepare_for_push(a, cheapest);
-	push(b, a->array[b->start]);
+	pb(b, a);
 }
 
-void	init_nodes_b(a, b)
+void	init_nodes_b(t_circularstack *a, t_circularstack *b)
 {
 	set_median(a);
 	set_median(b);
@@ -218,12 +219,12 @@ void	init_nodes_b(a, b)
 void	move_node_b_to_a(t_circularstack *a, t_circularstack *b)
 {
 	prepare_for_push(a, &b->array[b->start]);
-	push(a, b->array[b->start]);
+	pa(a, b);
 }
 
-void	set_min_on_top(t_circularstack *a)
+void	set_min_to_top(t_circularstack *a)
 {
-	while (a->array[a->start] != find_min(a))
+	while (a->array[a->start].value != find_min(a)->value)
 	{
 		if (find_min(a)->above_median)
 			rotate(a);

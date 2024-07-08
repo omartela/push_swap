@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 07:56:19 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 11:32:12 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:57:55 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
@@ -52,12 +52,14 @@ t_node	*find_max(t_circularstack *stack)
 	int		i;
 	t_node	*max;
 
-	*max = stack->array[0];
+	max = NULL;
+	max = &stack->array[0];
 	i = 1;
 	while (i < stack->end)
 	{
 		if (stack->array[i - 1].value > max->value)
-			*max = stack->array[i - 1];
+			max = &stack->array[i - 1];
+		++i;
 	}
 	return (max);
 }
@@ -65,9 +67,7 @@ t_node	*find_max(t_circularstack *stack)
 int	sort_three(t_circularstack *stack)
 {
 	t_node	*max;
-	int		i;
 
-	i = 1;
 	max = find_max(stack);
 	if (max->index == 0)
 		rotate(stack);
@@ -89,6 +89,7 @@ int	is_sorted(t_circularstack *stack)
 	{
 		if (stack->array[i - 1].value > stack->array[i].value)
 			return (0);
+		++i;
 	}
 	return (1);
 }
@@ -98,14 +99,15 @@ t_node	*find_min(t_circularstack *stack)
 	t_node	*min;
 	int		i;
 
+	i = 0;
+	min = NULL;
 	if (is_empty(stack))
 		return (NULL);
-	i = 1;
-	*min = stack->array[0];
+	min = &stack->array[0];
 	while (i < stack->end)
 	{
 		if (stack->array[i - 1].value < min->value)
-			*min = stack->array[i - 1];
+			min = &stack->array[i - 1];
 		i++;
 	}
 	return (min);

@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 23:05:03 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/05 23:20:37 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:29:48 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
@@ -29,10 +29,16 @@ void	ss(t_circularstack *a, t_circularstack *b)
 
 void	pa(t_circularstack *a, t_circularstack *b)
 {
-	push(a, b->array[0]);
+	t_node	*node;
+
+	node = pop(b);
+	push(a, node);
 }
 
-void	pb(t_circularstack *a, t_circularstack *b)
+void	pb(t_circularstack *b, t_circularstack *a)
 {
-	push(b, a->array[0]);
+	t_node	*node;
+
+	node = pop(a);
+	push(b, node);
 }
