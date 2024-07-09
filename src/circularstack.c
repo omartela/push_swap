@@ -45,7 +45,7 @@ t_node	*pop(t_circularstack *stack)
 	{
 		// do some error handlind
 	}
-	*node = stack->array[stack->start];
+	node = &stack->array[stack->start];
 	stack->start = (stack->start + 1) % stack->capacity;
 	stack->size--;
 	return (node);

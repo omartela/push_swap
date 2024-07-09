@@ -13,7 +13,11 @@
 
 void	free_stack(t_circularstack *stack)
 {
-	free(stack->array);
+	if (stack->array)
+	{
+		free(stack->array);
+		stack->array = NULL;
+	}
 }
 
 int	error_syntax(char *string)
@@ -36,7 +40,7 @@ int	error_duplicate(t_circularstack *stack, int n)
 	int	i;
 
 	i = 0;
-	if (!stack)
+	if (!stack->array)
 		return (0);
 	while (i < stack->size)
 	{

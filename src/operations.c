@@ -14,17 +14,21 @@
 void	sa(t_circularstack *a)
 {
 	swap(a);
+	ft_printf("sa \n");
 }
 
 void	sb(t_circularstack *b)
 {
 	swap(b);
+	ft_printf("sb \n");
 }
 
 void	ss(t_circularstack *a, t_circularstack *b)
 {
 	sa(a);
 	sb(b);
+	ft_printf("ss \n");
+	ft_printf("ss \n");
 }
 
 void	pa(t_circularstack *a, t_circularstack *b)
@@ -33,6 +37,7 @@ void	pa(t_circularstack *a, t_circularstack *b)
 
 	node = pop(b);
 	push(a, node);
+	ft_printf("pa \n");
 }
 
 void	pb(t_circularstack *b, t_circularstack *a)
@@ -41,4 +46,5 @@ void	pb(t_circularstack *b, t_circularstack *a)
 
 	node = pop(a);
 	push(b, node);
+	ft_printf("pb \n");
 }

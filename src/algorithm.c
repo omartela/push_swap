@@ -16,9 +16,9 @@ void	set_median(t_circularstack *a)
 	int	i;
 	int	median;
 
-	i = 0;
-	median = a->size / 2;
-	while (i < a->size)
+	i = a->start;
+	median = (a->end - a->start) / 2;
+	while (i <= a->end)
 	{
 		a->array[i].index = i;
 		if (i <= median)
@@ -37,13 +37,13 @@ static void	set_target_a(t_circularstack *a, t_circularstack *b)
 	int		j;
 	long	best_value;
 
-	i = 0;
-	while (i < a->size)
+	i = a->start;
+	while (i <= a->end)
 	{
-		j = 0;
+		j = b->start;
 		best_value = LONG_MIN;
 		target_node = NULL;
-		while (j < b->size)
+		while (j <= b->end)
 		{
 			current = &b->array[j];
 			if (current->value < a->array[i].value
@@ -70,12 +70,12 @@ static void	set_target_b(t_circularstack *a, t_circularstack *b)
 	int		j;
 	long	best_value;
 
-	i = 0;
-	while (i < b->size)
+	i = b->start;
+	while (i <= b->end)
 	{
-		j = 0;
+		j = a->start;
 		best_value = LONG_MAX;
-		while (j < a->size)
+		while (j <= a->end)
 		{
 			current = &a->array[j];
 			if (current->value > b->array[i].value
@@ -98,8 +98,8 @@ void	calculate_push_cost_a(t_circularstack *a)
 {
 	int	i;
 
-	i = 0;
-	while (i < a->size)
+	i = a->start;
+	while (i <= a->end)
 	{
 		if (!a->array[i].above_median)
 			a->array[i].push_cost = a->size - a->array[i].index;
@@ -119,9 +119,9 @@ void	set_cheapest(t_circularstack *a)
 
 	if (is_empty(a))
 		return ;
-	i = 0;
+	i = a->start;
 	min_push_cost = LONG_MAX;
-	while (i < a->size)
+	while (i <= a->end)
 	{
 		a->array[i].cheapest = 0;
 		if (a->array[i].push_cost < min_push_cost)
@@ -148,26 +148,31 @@ t_node	*get_cheapest_node(t_circularstack *a)
 	int		i;
 	t_node	*cheapest;
 
-	i = 0;
+	i = a->start;
 	cheapest = NULL;
-	*cheapest = a->array[i];
-	while (i < a->size)
+	while (i <= a->end)
 	{
-		if (a->array[i].cheapest == 1)
-			*cheapest = a->array[i];
+		if (a->array[i].cheapest == 1 || cheapest == NULL)
+			cheapest = &a->array[i];
 		++i;
 	}
 	return (cheapest);
 }
 
-void	prepare_for_push(t_circularstack *stack, t_node *cheapest)
+void	prepare_for_push(t_circularstack *stack, t_node *cheapest, char indicator)
 {
 	while (stack->array[stack->start].value != cheapest->value)
 	{
 		if (cheapest->above_median)
-			rotate(stack);
+			if (indicator == 'a')
+				ra(stack);
+			else
+				rb(stack);
 		else
-			reverse_rotate(stack);
+			if (indicator == 'a')
+				rra(stack);
+			else
+				rrb(stack);
 	}
 }
 
@@ -176,8 +181,7 @@ void	rotate_both(t_circularstack *a, t_circularstack *b, t_node *cheapest)
 	while (a->array[a->start].value != cheapest->value
 		&& b->array[b->start].value != cheapest->target_node->value)
 	{
-		rotate(a);
-		rotate(b);
+		rr(a, b);
 	}
 	set_median(a);
 	set_median(b);
@@ -188,8 +192,7 @@ void	rev_rotate_both(t_circularstack *a, t_circularstack *b, t_node *cheapest)
 	while (a->array[a->start].value != cheapest->value
 		&& b->array[b->start].value != cheapest->target_node->value)
 	{
-		rotate(a);
-		rotate(b);
+		rr(a, b);
 	}
 	set_median(a);
 	set_median(b);
@@ -205,7 +208,8 @@ void	move_node_a_to_b(t_circularstack *a, t_circularstack *b)
 	else if (!(cheapest->above_median)
 		&& !(cheapest->target_node->above_median))
 		rev_rotate_both(a, b, cheapest);
-	prepare_for_push(a, cheapest);
+	prepare_for_push(a, cheapest, 'a');
+	prepare_for_push(b, cheapest->target_node, 'b');
 	pb(b, a);
 }
 
@@ -218,7 +222,7 @@ void	init_nodes_b(t_circularstack *a, t_circularstack *b)
 
 void	move_node_b_to_a(t_circularstack *a, t_circularstack *b)
 {
-	prepare_for_push(a, &b->array[b->start]);
+	prepare_for_push(a, b->array[b->start].target_node, 'a');
 	pa(a, b);
 }
 
@@ -235,9 +239,6 @@ void	set_min_to_top(t_circularstack *a)
 
 void	sort_stacks(t_circularstack *a, t_circularstack *b)
 {
-	int	i;
-
-	i = 0;
 	if (a->size > 3 && !is_sorted(a))
 		pb(b, a);
 	if (a->size > 3 && !is_sorted(a))
@@ -248,7 +249,7 @@ void	sort_stacks(t_circularstack *a, t_circularstack *b)
 		move_node_a_to_b(a, b);
 	}
 	sort_three(a);
-	while (i < a->end)
+	while (b->size > 0)
 	{
 		init_nodes_b(a, b);
 		move_node_b_to_a(a, b);

@@ -55,9 +55,16 @@ void	sa(t_circularstack *a);
 void	ss(t_circularstack *a, t_circularstack *b);
 void	pa(t_circularstack *a, t_circularstack *b);
 void	pb(t_circularstack *a, t_circularstack *b);
-int		init_stack(t_circularstack *stack);
-void	init_stack_a(t_circularstack *stack, char **str);
+void	init_stack(t_circularstack *stack);
+int		init_stack_a(t_circularstack *stack, char **str);
+void	init_stack_b(t_circularstack *a, t_circularstack *b);
 void	sort_stacks(t_circularstack *a, t_circularstack *b);
 void	free_stack(t_circularstack *stack);
+void	ra(t_circularstack *a);
+void	rb(t_circularstack *b);
+void	rr(t_circularstack *a, t_circularstack *b);
+void	rra(t_circularstack *a);
+void	rrb(t_circularstack *b);
+void	rrr(t_circularstack *a, t_circularstack *b);
 
 #endif

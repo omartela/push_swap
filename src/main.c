@@ -11,6 +11,18 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
+void	print_a_stack(t_circularstack *a)
+{
+	int i;
+
+	i = 0;
+	while (i < a->size)
+	{
+		ft_printf("%d \n", a->array[i].value);
+		++i;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_circularstack	a;
@@ -21,7 +33,10 @@ int	main(int argc, char **argv)
 	else if (argc == 2)
 		argv = ft_split(argv[1], ' ');
 	init_stack(&a);
-	init_stack_a(&a, argv + 1);
+	init_stack(&b);
+	if (init_stack_a(&a, argv + 1))
+		return (1);
+	init_stack_b(&a, &b);
 	if (!is_sorted(&a))
 	{
 		if (a.size == 2)
@@ -31,6 +46,8 @@ int	main(int argc, char **argv)
 		else
 			sort_stacks(&a, &b);
 	}
+	print_a_stack(&a);
 	free_stack(&a);
+	free_stack(&b);
 	return (0);
 }
