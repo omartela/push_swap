@@ -15,8 +15,8 @@ void	print_a_stack(t_circularstack *a)
 {
 	int i;
 
-	i = 0;
-	while (i < a->size)
+	i = a->start;
+	while (i <= a->end)
 	{
 		ft_printf("%d \n", a->array[i].value);
 		++i;

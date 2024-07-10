@@ -11,29 +11,30 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-int	add_node(t_circularstack *stack, int n)
+t_list *create_node(int value) 
 {
-	int		new_capacity;
-	t_node	node;
+    t_node *node = malloc(sizeof(t_node));
+    if (!node)
+        return NULL;
+    node->value = value;
+    node->index = 0;
+    node->push_cost = 0;
+    node->cheapest = 0;
+    node->above_median = 0;
+    node->target_node = NULL;
 
-	new_capacity = stack->capacity + 1;
-	if (stack->size == stack->capacity)
-	{
-		stack->array = ft_realloc(stack->array, stack->capacity * sizeof(t_node), new_capacity * sizeof(t_node));
-		stack->capacity = new_capacity;
-	}
-	if (!stack->array)
-	{
-		free_stack(stack);
-		return (0);
-	}
-	stack->end = (stack->end + 1) % stack->capacity;
-	node.value = n;
-	stack->array[stack->end] = node;
-	node.index = stack->end;
-	stack->size++;
-	return (1);
+    t_list *list_node = malloc(sizeof(t_list));
+    if (!list_node) {
+        free(node);
+        return NULL;
+    }
+    list_node->node = node;
+    list_node->next = NULL;
+	list_node->prev = NULL;
+
+    return (list_node);
 }
+
 
 void	init_stack(t_circularstack *stack)
 {
@@ -57,7 +58,7 @@ int	init_stack_a(t_circularstack *stack, char **str)
 {
 	long	n;
 	int		i;
-
+// muista free split stack
 	i = 0;
 	while (str[i])
 	{

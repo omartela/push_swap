@@ -11,90 +11,89 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void	set_median(t_circularstack *a)
+void	set_median(t_list **a)
 {
-	int	i;
+	int	size;
 	int	median;
+	t_list	*current;
 
-	i = a->start;
-	median = (a->end - a->start) / 2;
-	while (i <= a->end)
+	size = ft_lstsize(*a);
+	median = size / 2;
+	current = a;
+	while (current->next)
 	{
-		a->array[i].index = i;
+		current->node.index = i;
 		if (i <= median)
-			a->array[i].above_median = 1;
+			current->node.above_median = 1;
 		else
-			a->array[i].above_median = 0;
-		++i;
+			current->node.above_median = 0;
+		current = current->next;
 	}
 }
 
-static void	set_target_a(t_circularstack *a, t_circularstack *b)
+static void	set_target_a(t_list **a, t_list **b)
 {
-	t_node	*current;
+	t_list	*current_a;
+	t_list	*current_b;
 	t_node	*target_node;
-	int		i;
-	int		j;
+	t_node	*current_node_b;
 	long	best_value;
 
-	i = a->start;
-	while (i <= a->end)
+	current_a = *a;
+	while (current_a != NULL)
 	{
-		j = b->start;
+		current_b = *b;
 		best_value = LONG_MIN;
 		target_node = NULL;
-		while (j <= b->end)
+		while (current_b != NULL)
 		{
-			current = &b->array[j];
-			if (current->value < a->array[i].value
-				&& current->value > best_value)
+			current_node_b = current_b->node;
+			if (current_node_b->value < current_a->node->value
+				&& current_node_b->value > best_value)
 			{
-				target_node = current;
-				best_value = current->value;
+				target_node = current_node_b;
+				best_value = current_node_b->value;
 			}
-			j++;
+
 		}
 		if (target_node == NULL)
-			a->array[i].target_node = find_max(b);
+			current_a->node->target_node = find_max(b);
 		else
-			a->array[i].target_node = target_node;
-		i++;
+			current_a->node->target_node = target_node;
 	}
 }
 
-static void	set_target_b(t_circularstack *a, t_circularstack *b)
+static void	set_target_b(t_list **a, t_list **b)
 {
-	t_node	*current;
+	t_list	*current_a;
+	t_list	*current_b;
 	t_node	*target_node;
-	int		i;
-	int		j;
+	t_node	*current_node_b;
 	long	best_value;
 
-	i = b->start;
-	while (i <= b->end)
+	current_b = *b;
+	while (current_b != NULL)
 	{
-		j = a->start;
+		current_a = *a;
 		best_value = LONG_MAX;
-		while (j <= a->end)
+		while (current_a != NULL)
 		{
-			current = &a->array[j];
-			if (current->value > b->array[i].value
+			current_node_a = current_a->node;
+			if (current_node_a->value > current_b->node->value
 				&& current->value < best_value)
 			{
-				target_node = current;
-				best_value = current->value;
+				target_node = current_node_a;
+				best_value = current_node_a->value;
 			}
-			j++;
 		}
 		if (best_value == LONG_MAX)
-			b->array[i].target_node = find_min(a);
+			current_b->node->target_node = find_min(a);
 		else
-			b->array[i].target_node = target_node;
-		i++;
+			current_b->node->target_node = target_node;
 	}
 }
 
-void	calculate_push_cost_a(t_circularstack *a)
+void	calculate_push_cost_a(t_list **a)
 {
 	int	i;
 
@@ -192,7 +191,7 @@ void	rev_rotate_both(t_circularstack *a, t_circularstack *b, t_node *cheapest)
 	while (a->array[a->start].value != cheapest->value
 		&& b->array[b->start].value != cheapest->target_node->value)
 	{
-		rr(a, b);
+		rrr(a, b);
 	}
 	set_median(a);
 	set_median(b);
@@ -231,9 +230,9 @@ void	set_min_to_top(t_circularstack *a)
 	while (a->array[a->start].value != find_min(a)->value)
 	{
 		if (find_min(a)->above_median)
-			rotate(a);
+			ra(a);
 		else
-			reverse_rotate(a);
+			rra(a);
 	}
 }
 

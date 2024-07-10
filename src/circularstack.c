@@ -11,69 +11,80 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-int	is_empty(t_circularstack *stack)
-{
-	if (stack->size == 0)
-		return (1);
-	return (0);
+void push(t_list **stack, int value) {
+    t_list *new_node = create_node(value);
+    if (!new_node) {
+        // Handle memory allocation error
+        return;
+    }
+    new_node->next = *stack;
+    *stack = new_node;
 }
 
-int	is_full(t_circularstack *stack)
-{
-	if (stack->size == stack->capacity)
-		return (1);
-	return (0);
-}
-
-void	push(t_circularstack *stack, t_node *node)
-{
-	if (is_full(stack))
+t_node *pop(t_list **stack) {
+    if (*stack == NULL) 
 	{
-		//do some error handling
-	}
-	stack->array[stack->end] = *node;
-	stack->end = (stack->end + 1) % stack->capacity;
-	stack->size++;
+        // Handle error: stack is empty
+        return NULL;
+    }
+
+    t_list *top = *stack;
+    t_node *node = top->node;
+
+    // Update the stack to point to the next node
+    *stack = top->next;
+    if (*stack != NULL) 
+        (*stack)->prev = NULL;  // Set previous of the new head to NULL
+
+    free(top);  // Free the memory of the popped node
+
+    return (node);
 }
 
-t_node	*pop(t_circularstack *stack)
+void swap(t_list **stack) 
 {
-	t_node	*node;
-
-	node = NULL;
-	if (is_empty(stack))
-	{
-		// do some error handlind
-	}
-	node = &stack->array[stack->start];
-	stack->start = (stack->start + 1) % stack->capacity;
-	stack->size--;
-	return (node);
+    if (*stack == NULL || (*stack)->next == NULL) {
+        // Handle error: not enough elements to swap
+        return;
+    }
+    t_list *first = *stack;
+    t_list *second = first->next;
+    first->next = second->next;
+    second->next = first;
+    *stack = second;
 }
 
-void	swap(t_circularstack *stack)
+
+void rotate(t_list **stack) 
 {
-	t_node	temp;
-
-	temp = stack->array[0];
-	stack->array[0] = stack->array[0];
-	stack->array[1] = temp;
+    if (*stack == NULL || (*stack)->next == NULL) {
+        // Handle error: not enough elements to rotate
+        return;
+    }
+    t_list *first = *stack;
+    t_list *last = ft_lstlast_bonus(stack);
+    first->next = NULL;
+	first->prev = last;
+    last->next = first;
 }
 
-void	rotate(t_circularstack *stack)
+void reverse_rotate(t_list **stack) 
 {
-	if (is_empty(stack))
-		return ;
-	stack->end = (stack->end - 1 + stack->capacity) % stack->capacity;
-	stack->start = (stack->start - 1 + stack->capacity) % stack->capacity;
-	stack->array[stack->start] = stack->array[(stack->end + 1) % stack->capacity];
+    if (*stack == NULL || (*stack)->next == NULL) {
+        // Handle error: not enough elements to reverse rotate
+        return;
+    }
+    // Find the last node
+    last = ft_lstlast_bonus(stack);
+
+    // Disconnect the last node
+    if (last->prev != NULL) 
+        last->prev->next = NULL;
+
+    // Set the last node as the new head of the stack
+    last->next = *stack;
+    last->prev = NULL;
+    (*stack)->prev = last;
+    *stack = last;
 }
 
-void	reverse_rotate(t_circularstack *stack)
-{
-	if (is_empty(stack))
-		return ;
-	stack->start = (stack->start + 1) % stack->capacity;
-	stack->end = (stack->end + 1) % stack->capacity;
-	stack->array[stack->end] = stack->array[stack->start - 1];
-}

@@ -53,12 +53,12 @@ t_node	*find_max(t_circularstack *stack)
 	t_node	*max;
 
 	max = NULL;
-	max = &stack->array[0];
-	i = 1;
+	max = &stack->array[stack->start];
+	i = stack->start;
 	while (i <= stack->end)
 	{
-		if (stack->array[i - 1].value > max->value)
-			max = &stack->array[i - 1];
+		if (stack->array[i].value > max->value)
+			max = &stack->array[i];
 		++i;
 	}
 	return (max);
@@ -97,7 +97,7 @@ int	is_sorted(t_circularstack *stack)
 {
 	int	i;
 
-	i = 1;
+	i = stack->start + 1;
 	if (is_empty(stack))
 		return (1);
 	while (i <= stack->end)
@@ -114,14 +114,14 @@ t_node	*find_min(t_circularstack *stack)
 	t_node	*min;
 	int		i;
 
-	i = 1;
+	i = stack->start;
 	if (is_empty(stack))
 		return (NULL);
-	min = &stack->array[0];
+	min = &stack->array[stack->start];
 	while (i <= stack->end)
 	{
-		if (stack->array[i - 1].value < min->value)
-			min = &stack->array[i - 1];
+		if (stack->array[i].value < min->value)
+			min = &stack->array[i];
 		i++;
 	}
 	return (min);
