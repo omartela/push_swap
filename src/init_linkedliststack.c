@@ -11,7 +11,25 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-t_list *create_node(int value) 
+int	add_stack_node(t_stack **stack, int value)
+{
+	t_stack *new_stack_node;
+	t_stack	*last;
+
+	new_stack_node = create_stack_node(value);
+	if (!new_stack_node)
+		return (0);
+	if (*stack == NULL)
+			*stack = new_stack_node;
+	else
+	{
+		last = last_stack(*stack);
+		last->next = new_stack_node;
+	}
+	return (1);
+}
+
+t_stack *create_stack_node(int value)
 {
     t_node *node = malloc(sizeof(t_node));
     if (!node)
@@ -23,38 +41,18 @@ t_list *create_node(int value)
     node->above_median = 0;
     node->target_node = NULL;
 
-    t_list *list_node = malloc(sizeof(t_list));
-    if (!list_node) {
+    t_stack *stack_node = malloc(sizeof(t_stack));
+    if (!stack_node) 
+	{
         free(node);
         return NULL;
     }
-    list_node->node = node;
-    list_node->next = NULL;
-	list_node->prev = NULL;
-
-    return (list_node);
+    stack_node->node = node;
+    stack_node->next = NULL;
+    return (stack_node);
 }
 
-
-void	init_stack(t_circularstack *stack)
-{
-	stack->array = NULL;
-	stack->start = 0;
-	stack->end = 0;
-	stack->size = 0;
-	stack->capacity = 0;
-}
-
-void	init_stack_b(t_circularstack *a, t_circularstack *b)
-{
-	b->array = malloc(a->capacity * sizeof(t_node));
-	if (!b->array)
-		free_stack(a);
-	else
-		b->capacity = a->capacity;
-}
-
-int	init_stack_a(t_circularstack *stack, char **str)
+int	init_stack_a(t_stack **stack, char **str)
 {
 	long	n;
 	int		i;
@@ -78,7 +76,7 @@ int	init_stack_a(t_circularstack *stack, char **str)
 			free_stack(stack);
 			return (1);
 		}
-		add_node(stack, (int)n);
+		add_stack_node(stack, (int)n);
 		i++;
 	}
 	return (0);

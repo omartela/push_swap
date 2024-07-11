@@ -27,44 +27,43 @@ typedef struct s_node
 	struct s_node	*target_node;
 }	t_node;
 
-typedef struct s_circularstack
+typedef struct s_stack
 {
-	t_node	*array;
-	int		start;
-	int		end;
-	int		size;
-	int		capacity;
-}	t_circularstack;
+	t_node			*node;
+	struct s_stack	*next;
+}					t_stack;
 
+int		stack_size(t_stack *stack);
+t_stack	*create_stack_node(int value);
 int		error_syntax(char *string);
-int		error_duplicate(t_circularstack *stack, int n);
+int		error_duplicate(t_stack **stack, int n);
 int		ft_atol(const char *str);
-void	swap(t_circularstack *stack);
-void	rotate(t_circularstack *stack);
-void	reverse_rotate(t_circularstack *stack);
-void	push(t_circularstack *stack, t_node *node);
-t_node	*pop(t_circularstack *stack);
-int		is_empty(t_circularstack *stack);
-int		is_full(t_circularstack *stack);
-int		is_sorted(t_circularstack *stack);
-int		sort_three(t_circularstack *stack);
-t_node	*find_min(t_circularstack *stack);
-t_node	*find_max(t_circularstack *stack);
-void	sb(t_circularstack *b);
-void	sa(t_circularstack *a);
-void	ss(t_circularstack *a, t_circularstack *b);
-void	pa(t_circularstack *a, t_circularstack *b);
-void	pb(t_circularstack *a, t_circularstack *b);
-void	init_stack(t_circularstack *stack);
-int		init_stack_a(t_circularstack *stack, char **str);
-void	init_stack_b(t_circularstack *a, t_circularstack *b);
-void	sort_stacks(t_circularstack *a, t_circularstack *b);
-void	free_stack(t_circularstack *stack);
-void	ra(t_circularstack *a);
-void	rb(t_circularstack *b);
-void	rr(t_circularstack *a, t_circularstack *b);
-void	rra(t_circularstack *a);
-void	rrb(t_circularstack *b);
-void	rrr(t_circularstack *a, t_circularstack *b);
-
+void	swap(t_stack **stack);
+void	rotate(t_stack **stack);
+void	reverse_rotate(t_stack **stack);
+void	push(t_stack **stack, t_stack *stack_node);
+t_stack	*pop(t_stack **stack);
+int		is_empty(t_stack **stack);
+int		is_full(t_stack **stack);
+int		is_sorted(t_stack **stack);
+int		sort_three(t_stack **stack);
+t_node	*find_min(t_stack **stack);
+t_node	*find_max(t_stack **stack);
+void	sb(t_stack **b);
+void	sa(t_stack **a);
+void	ss(t_stack **a, t_stack **b);
+void	pa(t_stack **a, t_stack **b);
+void	pb(t_stack **a, t_stack **b);
+void	init_stack(t_stack **stack);
+int		init_stack_a(t_stack **stack, char **str);
+void	init_stack_b(t_stack **a, t_stack **b);
+void	sort_stacks(t_stack **a, t_stack **b);
+void	free_stack(t_stack **stack);
+void	ra(t_stack **a);
+void	rb(t_stack **b);
+void	rr(t_stack **a, t_stack **b);
+void	rra(t_stack **a);
+void	rrb(t_stack **b);
+void	rrr(t_stack **a, t_stack **b);
+t_stack	*last_stack(t_stack *stack);
 #endif

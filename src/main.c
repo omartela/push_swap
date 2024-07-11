@@ -11,37 +11,36 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void	print_a_stack(t_circularstack *a)
+void	print_a_stack(t_stack **a)
 {
-	int i;
+	t_stack	*current;
 
-	i = a->start;
-	while (i <= a->end)
+	current = *a;
+	while (current != NULL)
 	{
-		ft_printf("%d \n", a->array[i].value);
-		++i;
+		ft_printf("%d \n", current->node->value);
+		current = current->next;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_circularstack	a;
-	t_circularstack	b;
+	t_stack	*a;
+	t_stack	*b;
 
+	a = NULL;
+	b = NULL;
 	if (argc == 1 || (argc == 2 && !argv[1][0]))
 		return (1);
 	else if (argc == 2)
 		argv = ft_split(argv[1], ' ');
-	init_stack(&a);
-	init_stack(&b);
 	if (init_stack_a(&a, argv + 1))
 		return (1);
-	init_stack_b(&a, &b);
-	if (!is_sorted(&a))
+	if (is_sorted(&a))
 	{
-		if (a.size == 2)
+		if (stack_size(a) == 2)
 			swap(&a);
-		else if (a.size == 3)
+		else if (stack_size(a) == 3)
 			sort_three(&a);
 		else
 			sort_stacks(&a, &b);

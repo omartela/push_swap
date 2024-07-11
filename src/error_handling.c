@@ -11,12 +11,19 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	free_stack(t_circularstack *stack)
+void	free_stack(t_stack **stack)
 {
-	if (stack->array)
+	t_stack	*current;
+
+	if (stack)
 	{
-		free(stack->array);
-		stack->array = NULL;
+		current = *stack;
+		while (current != NULL)
+		{
+			free(current->node);
+			current = current->next;
+		}
+		*stack = NULL;
 	}
 }
 
@@ -35,18 +42,18 @@ int	error_syntax(char *string)
 	return (0);
 }
 
-int	error_duplicate(t_circularstack *stack, int n)
+int	error_duplicate(t_stack **stack, int n)
 {
-	int	i;
+	t_stack	*current;
 
-	i = 0;
-	if (!stack->array)
-		return (0);
-	while (i < stack->size)
+	if (!stack)
+		return (1);
+	current = *stack;
+	while (current != NULL)
 	{
-		if (n == stack->array[i].value)
+		if (n == current->node->value)
 			return (1);
-		++i;
+		current = current->next;
 	}
 	return (0);
 }

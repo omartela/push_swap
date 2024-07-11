@@ -47,82 +47,86 @@ int	ft_atol(const char *str)
 	return (atol);
 }
 
-t_node	*find_max(t_circularstack *stack)
+t_node	*find_max(t_stack **stack)
 {
-	int		i;
 	t_node	*max;
+	t_stack	*current;
 
-	max = NULL;
-	max = &stack->array[stack->start];
-	i = stack->start;
-	while (i <= stack->end)
+	if (!stack)
+		return (NULL);
+	current = *stack;
+	max = current->node;
+	while (current)
 	{
-		if (stack->array[i].value > max->value)
-			max = &stack->array[i];
-		++i;
+		if (current->node->value > max->value)
+			max = current->node;
+		current = current->next;
 	}
 	return (max);
 }
 
-int	sort_three(t_circularstack *stack)
+int sort_three(t_stack **stack)
 {
-	t_node	*max;
-	t_node	*start;
+    t_node	*max;
+    t_stack	*current;
 
-	max = find_max(stack);
-	start = &stack->array[stack->start];
+    max = find_max(stack);
+    current = *stack;
 
-	if (max == start)
-	{
-		ra(stack);
-		if (stack->array[stack->start].value > stack->array[(stack->start + 1) % stack->capacity].value)
-			sa(stack);
-	}
-	else if (max == &stack->array[(stack->start + 1) % stack->capacity])
-	{
-		rra(stack);
-		if (stack->array[stack->start].value > stack->array[(stack->start + 1) % stack->capacity].value)
-			sa(stack);
-	}
-	else if (max == &stack->array[(stack->start + 2) % stack->capacity])
-	{
-		if (stack->array[stack->start].value > stack->array[(stack->start + 1) % stack->capacity].value)
-			sa(stack);
-	}
-	return (1);
+    if (current->node == max)
+    {
+        ra(stack);
+        if ((*stack)->node->value > (*stack)->next->node->value)
+            sa(stack);
+    }
+    else if (current->next->node == max)
+    {
+        rra(stack);
+        if ((*stack)->node->value > (*stack)->next->node->value)
+            sa(stack);
+    }
+    else if (current->next->next->node == max)
+    {
+        if ((*stack)->node->value > (*stack)->next->node->value)
+            sa(stack);
+    }
+    return (0);
 }
 
 
-int	is_sorted(t_circularstack *stack)
+int	is_sorted(t_stack **stack)
 {
-	int	i;
+	t_stack	*prev;
+	t_stack	*current;
 
-	i = stack->start + 1;
-	if (is_empty(stack))
-		return (1);
-	while (i <= stack->end)
+	if (!(stack && *stack && (*stack)->next))
+		return (0);
+	prev = *stack;
+	current = prev->next;
+	while (current)
 	{
-		if (stack->array[i - 1].value > stack->array[i].value)
-			return (0);
-		++i;
+		if (prev->node->value > current->node->value)
+			return (1);
+		prev = current;
+		current = current->next;
 	}
-	return (1);
+	return (0);
 }
 
-t_node	*find_min(t_circularstack *stack)
+t_node	*find_min(t_stack **stack)
 {
 	t_node	*min;
-	int		i;
+	t_stack	*current;
 
-	i = stack->start;
-	if (is_empty(stack))
+	if (!stack)
 		return (NULL);
-	min = &stack->array[stack->start];
-	while (i <= stack->end)
+	current = *stack;
+	min = current->node;
+	while (current)
 	{
-		if (stack->array[i].value < min->value)
-			min = &stack->array[i];
-		i++;
+		if (current->node->value < min->value)
+			min = current->node;
+		current = current->next;
 	}
 	return (min);
 }

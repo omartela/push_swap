@@ -11,30 +11,33 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void	set_median(t_list **a)
+void	set_median(t_stack **a)
 {
 	int	size;
 	int	median;
-	t_list	*current;
+	int	i;
+	t_stack	*current;
 
-	size = ft_lstsize(*a);
+	size = stack_size(*a);
 	median = size / 2;
-	current = a;
+	current = *a;
+	i = 0;
 	while (current->next)
 	{
-		current->node.index = i;
+		current->node->index = i;
 		if (i <= median)
-			current->node.above_median = 1;
+			current->node->above_median = 1;
 		else
-			current->node.above_median = 0;
+			current->node->above_median = 0;
 		current = current->next;
+		++i;
 	}
 }
 
-static void	set_target_a(t_list **a, t_list **b)
+static void	set_target_a(t_stack **a, t_stack **b)
 {
-	t_list	*current_a;
-	t_list	*current_b;
+	t_stack	*current_a;
+	t_stack	*current_b;
 	t_node	*target_node;
 	t_node	*current_node_b;
 	long	best_value;
@@ -54,21 +57,21 @@ static void	set_target_a(t_list **a, t_list **b)
 				target_node = current_node_b;
 				best_value = current_node_b->value;
 			}
-
+			current_b = current_b->next;
 		}
 		if (target_node == NULL)
 			current_a->node->target_node = find_max(b);
 		else
 			current_a->node->target_node = target_node;
+		current_a = current_a->next;
 	}
 }
 
-static void	set_target_b(t_list **a, t_list **b)
+static void	set_target_b(t_stack **a, t_stack **b)
 {
-	t_list	*current_a;
-	t_list	*current_b;
+	t_stack	*current_a;
+	t_stack	*current_b;
 	t_node	*target_node;
-	t_node	*current_node_b;
 	long	best_value;
 
 	current_b = *b;
@@ -78,62 +81,67 @@ static void	set_target_b(t_list **a, t_list **b)
 		best_value = LONG_MAX;
 		while (current_a != NULL)
 		{
-			current_node_a = current_a->node;
-			if (current_node_a->value > current_b->node->value
-				&& current->value < best_value)
+			if (current_a->node->value > current_b->node->value
+				&& current_a->node->value < best_value)
 			{
-				target_node = current_node_a;
-				best_value = current_node_a->value;
+				target_node = current_a->node;
+				best_value = current_a->node->value;
 			}
+			current_a = current_a->next;
 		}
 		if (best_value == LONG_MAX)
 			current_b->node->target_node = find_min(a);
 		else
 			current_b->node->target_node = target_node;
+		current_b = current_b->next;
 	}
 }
 
-void	calculate_push_cost_a(t_list **a)
+void	calculate_push_cost_a(t_stack **a)
 {
-	int	i;
+	t_stack	*current;
+	t_node	*node;
+	int		size;
 
-	i = a->start;
-	while (i <= a->end)
+	size = stack_size(*a);
+	current = *a;
+	while (current != NULL)
 	{
-		if (!a->array[i].above_median)
-			a->array[i].push_cost = a->size - a->array[i].index;
-		if (a->array[i].target_node->above_median)
-			a->array[i].push_cost += a->array[i].target_node->index;
+		node = current->node;
+		if (!node->above_median)
+			node->push_cost = size - node->index;
+		if (node->target_node->above_median)
+			node->push_cost += node->target_node->index;
 		else
-			a->array[i].push_cost += a->size - (a->array[i].target_node->index);
-		i++;
+			node->push_cost += size - (node->target_node->index);
+		current = current->next;
 	}
 }
 
-void	set_cheapest(t_circularstack *a)
+void	set_cheapest(t_stack **a)
 {
 	long	min_push_cost;
-	int		i;
 	t_node	*min_node;
+	t_stack	*current;
 
-	if (is_empty(a))
+	if (!a)
 		return ;
-	i = a->start;
 	min_push_cost = LONG_MAX;
-	while (i <= a->end)
+	current = *a;
+	while (current)
 	{
-		a->array[i].cheapest = 0;
-		if (a->array[i].push_cost < min_push_cost)
+		min_node = current->node;
+		if (current->node->push_cost < min_push_cost)
 		{
-			min_push_cost = a->array[i].push_cost;
-			min_node = &a->array[i];
+			min_push_cost = current->node->push_cost;
+			min_node = current->node;
 		}
-		++i;
+		current = current->next;
 	}
 	min_node->cheapest = 1;
 }
 
-void	init_nodes_a(t_circularstack *a, t_circularstack *b)
+void	init_nodes_a(t_stack **a, t_stack **b)
 {
 	set_median(a);
 	set_median(b);
@@ -142,25 +150,26 @@ void	init_nodes_a(t_circularstack *a, t_circularstack *b)
 	set_cheapest(a);
 }
 
-t_node	*get_cheapest_node(t_circularstack *a)
+t_node	*get_cheapest_node(t_stack **a)
 {
-	int		i;
-	t_node	*cheapest;
+	t_stack *current;
 
-	i = a->start;
-	cheapest = NULL;
-	while (i <= a->end)
+	current = *a;
+	while (current != NULL)
 	{
-		if (a->array[i].cheapest == 1 || cheapest == NULL)
-			cheapest = &a->array[i];
-		++i;
+		if (current->node->cheapest == 1)
+			return (current->node);
+		current = current->next;
 	}
-	return (cheapest);
+	return (NULL);
 }
 
-void	prepare_for_push(t_circularstack *stack, t_node *cheapest, char indicator)
+void	prepare_for_push(t_stack **stack, t_node *cheapest, char indicator)
 {
-	while (stack->array[stack->start].value != cheapest->value)
+	t_stack	*current;
+
+	current = *stack;
+	while (current->node->value != cheapest->value)
 	{
 		if (cheapest->above_median)
 			if (indicator == 'a')
@@ -172,32 +181,47 @@ void	prepare_for_push(t_circularstack *stack, t_node *cheapest, char indicator)
 				rra(stack);
 			else
 				rrb(stack);
+		current = current->next;
 	}
 }
 
-void	rotate_both(t_circularstack *a, t_circularstack *b, t_node *cheapest)
+void	rotate_both(t_stack **a, t_stack **b, t_node *cheapest)
 {
-	while (a->array[a->start].value != cheapest->value
-		&& b->array[b->start].value != cheapest->target_node->value)
+	t_stack *current_a;
+	t_stack	*current_b;
+
+	current_a = *a;
+	current_b = *b;
+	while (current_a->node->value != cheapest->value
+		&& current_b->node->value != cheapest->target_node->value)
 	{
 		rr(a, b);
+		current_a = current_a->next;
+		current_b = current_b->next;
 	}
 	set_median(a);
 	set_median(b);
 }
 
-void	rev_rotate_both(t_circularstack *a, t_circularstack *b, t_node *cheapest)
+void	rev_rotate_both(t_stack **a, t_stack **b, t_node *cheapest)
 {
-	while (a->array[a->start].value != cheapest->value
-		&& b->array[b->start].value != cheapest->target_node->value)
+	t_stack *current_a;
+	t_stack	*current_b;
+
+	current_a = *a;
+	current_b = *b;
+	while (current_a->node->value != cheapest->value
+		&& current_b->node->value != cheapest->target_node->value)
 	{
 		rrr(a, b);
+		current_a = current_a->next;
+		current_b = current_b->next;
 	}
 	set_median(a);
 	set_median(b);
 }
 
-void	move_node_a_to_b(t_circularstack *a, t_circularstack *b)
+void	move_node_a_to_b(t_stack **a, t_stack **b)
 {
 	t_node	*cheapest;
 
@@ -212,47 +236,50 @@ void	move_node_a_to_b(t_circularstack *a, t_circularstack *b)
 	pb(b, a);
 }
 
-void	init_nodes_b(t_circularstack *a, t_circularstack *b)
+void	init_nodes_b(t_stack **a, t_stack **b)
 {
 	set_median(a);
 	set_median(b);
 	set_target_b(a, b);
 }
 
-void	move_node_b_to_a(t_circularstack *a, t_circularstack *b)
+void	move_node_b_to_a(t_stack **a, t_stack **b)
 {
-	prepare_for_push(a, b->array[b->start].target_node, 'a');
+	prepare_for_push(a, (*b)->node->target_node, 'a');
 	pa(a, b);
 }
 
-void	set_min_to_top(t_circularstack *a)
+void set_min_to_top(t_stack **a)
 {
-	while (a->array[a->start].value != find_min(a)->value)
-	{
-		if (find_min(a)->above_median)
-			ra(a);
-		else
-			rra(a);
-	}
+    t_node *min_node = find_min(a);
+
+    while ((*a)->node->value != min_node->value)
+    {
+        if (min_node->above_median)
+            ra(a);
+        else
+            rra(a);
+    }
 }
 
-void	sort_stacks(t_circularstack *a, t_circularstack *b)
+
+void sort_stacks(t_stack **a, t_stack **b)
 {
-	if (a->size > 3 && !is_sorted(a))
-		pb(b, a);
-	if (a->size > 3 && !is_sorted(a))
-		pb(b, a);
-	while (a->size > 3 && !is_sorted(a))
-	{
-		init_nodes_a(a, b);
-		move_node_a_to_b(a, b);
-	}
-	sort_three(a);
-	while (b->size > 0)
-	{
-		init_nodes_b(a, b);
-		move_node_b_to_a(a, b);
-	}
-	set_median(a);
-	set_min_to_top(a);
+    if (stack_size(*a) > 3 && !is_sorted(a))
+        pb(b, a);
+    if (stack_size(*a) > 3 && !is_sorted(a))
+        pb(b, a);
+    while (stack_size(*a) > 3 && !is_sorted(a))
+    {
+        init_nodes_a(a, b);
+        move_node_a_to_b(a, b);
+    }
+    sort_three(a);
+    while (stack_size(*b) > 0)
+    {
+        init_nodes_b(a, b);
+        move_node_b_to_a(a, b);
+    }
+    set_median(a);
+    set_min_to_top(a);
 }

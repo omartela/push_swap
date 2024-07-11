@@ -11,38 +11,38 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void	ra(t_circularstack *a)
+void	ra(t_stack **a)
 {
 	rotate(a);
 	ft_printf("ra\n");
 }
 
-void	rb(t_circularstack *b)
+void	rb(t_stack **b)
 {
 	rotate(b);
 	ft_printf("rb\n");
 }
 
-void	rr(t_circularstack *a, t_circularstack *b)
+void	rr(t_stack **a, t_stack **b)
 {
 	rotate(a);
 	rotate(b);
 	ft_printf("rr\n");
 }
 
-void	rra(t_circularstack *a)
+void	rra(t_stack **a)
 {
 	reverse_rotate(a);
 	ft_printf("rra\n");
 }
 
-void	rrb(t_circularstack *b)
+void	rrb(t_stack **b)
 {
 	reverse_rotate(b);
 	ft_printf("rrb\n");
 }
 
-void	rrr(t_circularstack *a, t_circularstack *b)
+void	rrr(t_stack **a, t_stack **b)
 {
 	reverse_rotate(a);
 	reverse_rotate(b);

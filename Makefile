@@ -16,8 +16,8 @@ SRC = src/operations.c \
 	  src/operations_2.c \
 	  src/utilities.c \
 	  src/error_handling.c \
-	  src/circularstack.c \
-	  src/init_circularstack.c \
+	  src/linkedliststack.c \
+	  src/init_linkedliststack.c \
 	  src/algorithm.c \
 	  src/main.c
 
