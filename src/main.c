@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 {
 	t_stack	*a;
 	t_stack	*b;
-
+/// Muista ottaa huomioon viel ft_split vapauttaminen jos sita kaytetaan
 	a = NULL;
 	b = NULL;
 	if (argc == 1 || (argc == 2 && !argv[1][0]))

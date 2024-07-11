@@ -58,10 +58,7 @@ t_stack *pop(t_stack **stack)
 void swap(t_stack **stack) 
 {
     if (*stack == NULL || (*stack)->next == NULL) 
-    {
-        // Handle error: not enough elements to swap
         return;
-    }
     t_stack *first = *stack;
     t_stack *second = first->next;
     first->next = second->next;
