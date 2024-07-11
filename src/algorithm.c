@@ -181,7 +181,7 @@ void	prepare_for_push(t_stack **stack, t_node *cheapest, char indicator)
 				rra(stack);
 			else
 				rrb(stack);
-		current = current->next;
+		current = *stack;
 	}
 }
 
@@ -214,8 +214,8 @@ void	rev_rotate_both(t_stack **a, t_stack **b, t_node *cheapest)
 		&& current_b->node->value != cheapest->target_node->value)
 	{
 		rrr(a, b);
-		current_a = current_a->next;
-		current_b = current_b->next;
+		current_a = *a;
+		current_b = *b;
 	}
 	set_median(a);
 	set_median(b);
@@ -265,11 +265,11 @@ void set_min_to_top(t_stack **a)
 
 void sort_stacks(t_stack **a, t_stack **b)
 {
-    if (stack_size(*a) > 3 && !is_sorted(a))
+    if (stack_size(*a) > 3 && is_sorted(a))
         pb(b, a);
-    if (stack_size(*a) > 3 && !is_sorted(a))
+    if (stack_size(*a) > 3 && is_sorted(a))
         pb(b, a);
-    while (stack_size(*a) > 3 && !is_sorted(a))
+    while (stack_size(*a) > 3 && is_sorted(a))
     {
         init_nodes_a(a, b);
         move_node_a_to_b(a, b);

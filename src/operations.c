@@ -43,9 +43,6 @@ void	pb(t_stack **b, t_stack **a)
 {
 	t_stack	*stack_node;
 
-	if (b || a)
-		return ;
-
 	stack_node = pop(a);
 	push(b, stack_node);
 	ft_printf("pb \n");
