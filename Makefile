@@ -6,7 +6,7 @@
 #    By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 14:12:36 by omartela          #+#    #+#              #
-#    Updated: 2024/07/08 15:37:44 by omartela         ###   ########.fr        #
+#    Updated: 2024/07/12 18:00:41 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ SRC = src/operations.c \
 	  src/linkedliststack.c \
 	  src/init_linkedliststack.c \
 	  src/algorithm.c \
+	  src/algorithm_2.c \
+	  src/algorithm_3.c \
 	  src/main.c
 
 OBJS = $(SRC:.c=.o)
