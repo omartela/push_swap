@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-static int	string_to_integer(const char *str, int sign)
+static long	string_to_integer(const char *str, int sign)
 {
-	long int	result;
+	long result;
 
 	result = 0;
 	while (*str >= '0' && *str <= '9')
@@ -24,12 +24,13 @@ static int	string_to_integer(const char *str, int sign)
 	return (result);
 }
 
-int	ft_atol(const char *str)
+long	ft_atol(const char *str)
 {
-	int	atol;
-	int	sign;
+	long	atol;
+	int		sign;
 
 	sign = 1;
+	atol = 0;
 	while (*str == ' ' || *str == '\t' || *str == '\v'
 		|| *str == '\r' || *str == '\f' || *str == '\n')
 	{
