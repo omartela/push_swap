@@ -11,18 +11,6 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void	print_a_stack(t_stack **a)
-{
-	t_stack	*current;
-
-	current = *a;
-	while (current != NULL)
-	{
-		ft_printf("%d \n", current->node->value);
-		current = current->next;
-	}
-}
-
 void	free_arguments(char **str)
 {
 	int	i;
@@ -78,7 +66,6 @@ int	main(int argc, char **argv)
 		else
 			sort_stacks(&a, &b);
 	}
-	//print_a_stack(&a);
 	free_stack(&a);
 	free_stack(&b);
 	return (0);

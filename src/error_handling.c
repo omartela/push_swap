@@ -14,6 +14,7 @@
 void	free_stack(t_stack **stack)
 {
 	t_stack	*current;
+	t_stack	*prev;
 
 	if (stack)
 	{
@@ -21,7 +22,9 @@ void	free_stack(t_stack **stack)
 		while (current != NULL)
 		{
 			free(current->node);
+			prev = current;
 			current = current->next;
+			free(prev);
 		}
 		*stack = NULL;
 	}

@@ -44,7 +44,6 @@ t_stack	*create_stack_node(int value)
 	node->cheapest = 0;
 	node->above_median = 0;
 	node->target_node = NULL;
-	stack_node = malloc(sizeof(t_stack));
 	if (!stack_node)
 	{
 		free(node);
