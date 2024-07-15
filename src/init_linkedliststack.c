@@ -89,6 +89,7 @@ int	init_stack_a(t_stack **stack, char **str)
 			return (1);
 		if (add_stack_node(stack, (int)n))
 		{
+			ft_putstr_fd("Error\n", 2);
 			free_stack(stack);
 			return (1);
 		}
