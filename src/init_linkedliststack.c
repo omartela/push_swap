@@ -61,10 +61,11 @@ int	check_argument(char **str, int i, t_stack **stack, long *n)
 		free_stack(stack);
 		return (1);
 	}
-	*n = ft_atoi(str[i]);
+	*n = ft_atol(str[i]);
 	if (*n > INT_MAX || *n < INT_MIN)
 	{
 		free_stack(stack);
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	if (error_duplicate(stack, *n))

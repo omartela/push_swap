@@ -39,7 +39,7 @@ int	error_syntax(char *string)
 		{
 			if (!ft_isdigit(*string))
 			{
-				ft_putstr_fd("Error \n", 2);
+				ft_putstr_fd("Error\n", 2);
 				return (1);
 			}
 			++string;
@@ -59,7 +59,7 @@ int	error_duplicate(t_stack **stack, int n)
 	{
 		if (n == current->node->value)
 		{
-			ft_putstr_fd("Error \n", 2);
+			ft_putstr_fd("Error\n", 2);
 			return (1);
 		}
 		current = current->next;

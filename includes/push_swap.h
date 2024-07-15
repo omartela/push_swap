@@ -37,7 +37,7 @@ int		stack_size(t_stack *stack);
 t_stack	*create_stack_node(int value);
 int		error_syntax(char *string);
 int		error_duplicate(t_stack **stack, int n);
-int		ft_atol(const char *str);
+long	ft_atol(const char *str);
 void	swap(t_stack **stack);
 void	rotate(t_stack **stack);
 void	reverse_rotate(t_stack **stack);
