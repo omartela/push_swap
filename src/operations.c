@@ -14,20 +14,20 @@
 void	sa(t_stack **a)
 {
 	swap(a);
-	ft_printf("sa \n");
+	ft_printf("sa\n");
 }
 
 void	sb(t_stack **b)
 {
 	swap(b);
-	ft_printf("sb \n");
+	ft_printf("sb\n");
 }
 
 void	ss(t_stack **a, t_stack **b)
 {
 	swap(a);
 	swap(b);
-	ft_printf("ss \n");
+	ft_printf("ss\n");
 }
 
 void	pa(t_stack **a, t_stack **b)
@@ -36,7 +36,7 @@ void	pa(t_stack **a, t_stack **b)
 
 	stack_node = pop(b);
 	push(a, stack_node);
-	ft_printf("pa \n");
+	ft_printf("pa\n");
 }
 
 void	pb(t_stack **b, t_stack **a)
@@ -45,5 +45,5 @@ void	pb(t_stack **b, t_stack **a)
 
 	stack_node = pop(a);
 	push(b, stack_node);
-	ft_printf("pb \n");
+	ft_printf("pb\n");
 }

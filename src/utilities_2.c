@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations_2.c                                     :+:      :+:    :+:   */
+/*   utilities_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 23:06:02 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/15 09:35:38 by omartela         ###   ########.fr       */
+/*   Created: 2024/07/15 10:05:40 by omartela          #+#    #+#             */
+/*   Updated: 2024/07/15 10:06:39 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void	ra(t_stack **a)
+int	stack_size(t_stack *stack)
 {
-	rotate(a);
-	ft_printf("ra\n");
-}
+	int	n_nodes;
 
-void	rb(t_stack **b)
-{
-	rotate(b);
-	ft_printf("rb\n");
-}
-
-void	rr(t_stack **a, t_stack **b)
-{
-	rotate(a);
-	rotate(b);
-	ft_printf("rr\n");
-}
-
-void	rra(t_stack **a)
-{
-	reverse_rotate(a);
-	ft_printf("rra\n");
-}
-
-void	rrb(t_stack **b)
-{
-	reverse_rotate(b);
-	ft_printf("rrb\n");
+	if (!stack)
+		return (0);
+	n_nodes = 0;
+	while (stack != 0)
+	{
+		stack = stack->next;
+		n_nodes = n_nodes + 1;
+	}
+	return (n_nodes);
 }

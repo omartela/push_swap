@@ -78,7 +78,7 @@ int	main(int argc, char **argv)
 		else
 			sort_stacks(&a, &b);
 	}
-	print_a_stack(&a);
+	//print_a_stack(&a);
 	free_stack(&a);
 	free_stack(&b);
 	return (0);

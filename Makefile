@@ -6,7 +6,7 @@
 #    By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 14:12:36 by omartela          #+#    #+#              #
-#    Updated: 2024/07/12 18:00:41 by omartela         ###   ########.fr        #
+#    Updated: 2024/07/15 11:00:54 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,10 @@ NAME = push_swap
 
 SRC = src/operations.c \
 	  src/operations_2.c \
+	  src/operations_3.c \
+	  src/ft_atol.c \
 	  src/utilities.c \
+	  src/utilities_2.c \
 	  src/error_handling.c \
 	  src/linkedliststack.c \
 	  src/init_linkedliststack.c \

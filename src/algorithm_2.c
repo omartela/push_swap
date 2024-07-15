@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:34:47 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/12 17:41:31 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/15 10:59:32 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
@@ -22,7 +22,7 @@ void	set_median(t_stack **a)
 	median = size / 2;
 	current = *a;
 	i = 0;
-	while (current->next)
+	while (current)
 	{
 		current->node->index = i;
 		if (i <= median)
@@ -39,7 +39,6 @@ void	set_target_a(t_stack **a, t_stack **b)
 	t_stack	*current_a;
 	t_stack	*current_b;
 	t_node	*target_node;
-	t_node	*current_node_b;
 	long	best_value;
 
 	current_a = *a;
@@ -49,12 +48,11 @@ void	set_target_a(t_stack **a, t_stack **b)
 		best_value = LONG_MIN;
 		while (current_b != NULL)
 		{
-			current_node_b = current_b->node;
-			if (current_node_b->value < current_a->node->value
-				&& current_node_b->value > best_value)
+			if (current_b->node->value < current_a->node->value
+				&& current_b->node->value > best_value)
 			{
-				target_node = current_node_b;
-				best_value = current_node_b->value;
+				target_node = current_b->node;
+				best_value = current_b->node->value;
 			}
 			current_b = current_b->next;
 		}

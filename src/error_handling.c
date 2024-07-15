@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 06:14:22 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/12 15:40:40 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:33:10 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -14,7 +14,6 @@
 void	free_stack(t_stack **stack)
 {
 	t_stack	*current;
-	t_stack	*temp;
 
 	if (stack)
 	{
@@ -22,9 +21,7 @@ void	free_stack(t_stack **stack)
 		while (current != NULL)
 		{
 			free(current->node);
-			temp = current;
 			current = current->next;
-			free(temp);
 		}
 		*stack = NULL;
 	}
@@ -38,7 +35,10 @@ int	error_syntax(char *string)
 		while (*string)
 		{
 			if (!ft_isdigit(*string))
+			{
+				ft_putstr_fd("Error \n", 2);
 				return (1);
+			}
 			++string;
 		}
 	}
@@ -55,7 +55,10 @@ int	error_duplicate(t_stack **stack, int n)
 	while (current != NULL)
 	{
 		if (n == current->node->value)
+		{
+			ft_putstr_fd("Error \n", 2);
 			return (1);
+		}
 		current = current->next;
 	}
 	return (0);
