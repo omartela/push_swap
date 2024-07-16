@@ -48,40 +48,23 @@ void	prepare_for_push(t_stack **stack, t_node *cheapest, char indicator)
 		}
 		current = *stack;
 	}
+	set_median(stack);
 }
 
 void	rotate_both(t_stack **a, t_stack **b, t_node *cheapest)
 {
-	t_stack	*current_a;
-	t_stack	*current_b;
-
-	current_a = *a;
-	current_b = *b;
-	while (current_a->node->value != cheapest->value
-		&& current_b->node->value != cheapest->target_node->value)
-	{
+	while ((*a)->node != cheapest
+		&& (*b)->node != cheapest->target_node)
 		rr(a, b);
-		current_a = current_a->next;
-		current_b = current_b->next;
-	}
 	set_median(a);
 	set_median(b);
 }
 
 void	rev_rotate_both(t_stack **a, t_stack **b, t_node *cheapest)
 {
-	t_stack	*current_a;
-	t_stack	*current_b;
-
-	current_a = *a;
-	current_b = *b;
-	while (current_a->node->value != cheapest->value
-		&& current_b->node->value != cheapest->target_node->value)
-	{
+	while ((*a)->node != cheapest
+		&& (*b)->node->value != cheapest->target_node->value)
 		rrr(a, b);
-		current_a = *a;
-		current_b = *b;
-	}
 	set_median(a);
 	set_median(b);
 }

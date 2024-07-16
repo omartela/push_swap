@@ -73,7 +73,7 @@ int	is_sorted(t_stack **stack)
 	t_stack	*current;
 
 	if (!(stack && *stack && (*stack)->next))
-		return (0);
+		return (1);
 	prev = *stack;
 	current = prev->next;
 	while (current)

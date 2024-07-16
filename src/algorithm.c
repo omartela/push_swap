@@ -16,7 +16,7 @@ void	init_nodes_a(t_stack **a, t_stack **b)
 	set_median(a);
 	set_median(b);
 	set_target_a(a, b);
-	calculate_push_cost_a(a);
+	calculate_push_cost_a(a, b);
 	set_cheapest(a);
 }
 
@@ -59,7 +59,7 @@ void	sort_stacks(t_stack **a, t_stack **b)
 		move_node_a_to_b(a, b);
 	}
 	sort_three(a);
-	while (stack_size(*b) > 0)
+	while (*b)
 	{
 		init_nodes_b(a, b);
 		move_node_b_to_a(a, b);

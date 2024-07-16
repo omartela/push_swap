@@ -66,9 +66,11 @@ t_stack	*last_stack(t_stack *stack);
 void	set_median(t_stack **a);
 void	set_target_a(t_stack **a, t_stack **b);
 void	set_target_b(t_stack **a, t_stack **b);
-void	calculate_push_cost_a(t_stack **a);
+void	calculate_push_cost_a(t_stack **a, t_stack **b);
 void	set_cheapest(t_stack **a);
 void	prepare_for_push(t_stack **stack, t_node *cheapest, char indicator);
 void	move_node_a_to_b(t_stack **a, t_stack **b);
+void	rev_rotate_both(t_stack **a, t_stack **b, t_node *cheapest);
+void	rotate_both(t_stack **a, t_stack **b, t_node *cheapest);
 
 #endif

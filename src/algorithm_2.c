@@ -94,23 +94,27 @@ void	set_target_b(t_stack **a, t_stack **b)
 	}
 }
 
-void	calculate_push_cost_a(t_stack **a)
+void	calculate_push_cost_a(t_stack **a, t_stack **b)
 {
 	t_stack	*current;
 	t_node	*node;
-	int		size;
+	int		size_a;
+	int		size_b;
 
-	size = stack_size(*a);
+	size_a = stack_size(*a);
+	size_b = stack_size(*b);
 	current = *a;
 	while (current != NULL)
 	{
 		node = current->node;
 		if (!node->above_median)
-			node->push_cost = size - node->index;
+			node->push_cost = size_a - node->index;
+		else
+			node->push_cost = node->index;
 		if (node->target_node->above_median)
 			node->push_cost += node->target_node->index;
 		else
-			node->push_cost += size - (node->target_node->index);
+			node->push_cost += size_b - (node->target_node->index);
 		current = current->next;
 	}
 }
