@@ -29,6 +29,8 @@ int	check_arguments_and_init(t_stack **a, char **argv, int argc)
 	if (argc == 2)
 	{
 		argv = ft_split(argv[1], ' ');
+		if (*argv == NULL)
+			ft_putstr_fd("Error\n", 2);
 		if (init_stack_a(a, argv))
 		{
 			free_arguments(argv);
@@ -53,14 +55,14 @@ int	main(int argc, char **argv)
 
 	a = NULL;
 	b = NULL;
-	if (argc == 1 || (argc == 2 && !argv[1][0]))
+	if (argc == 1)
 		return (1);
 	if (check_arguments_and_init(&a, argv, argc))
 		return (1);
 	if (is_sorted(&a))
 	{
 		if (stack_size(a) == 2)
-			swap(&a);
+			sa(&a);
 		else if (stack_size(a) == 3)
 			sort_three(&a);
 		else

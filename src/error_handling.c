@@ -32,23 +32,24 @@ void	free_stack(t_stack **stack)
 
 int	error_syntax(char *string)
 {
-	if ((*string == '-' || *string == '+') && ft_strlen(string) == 1)
+	while (*string == ' ' || *string == '\t' || *string == '\v'
+		|| *string == '\r' || *string == '\f' || *string == '\n')
+		++string;
+	if (*string == '-' || *string == '+')
+		++string;
+	if (!ft_isdigit(*string))
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
-	if (*string == '-' || *string == '+' || ft_isdigit(*string))
+	while (*string)
 	{
-		++string;
-		while (*string)
+		if (!ft_isdigit(*string))
 		{
-			if (!ft_isdigit(*string))
-			{
-				ft_putstr_fd("Error\n", 2);
-				return (1);
-			}
-			++string;
+			ft_putstr_fd("Error\n", 2);
+			return (1);
 		}
+		++string;
 	}
 	return (0);
 }
