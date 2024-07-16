@@ -107,7 +107,7 @@ void	calculate_push_cost_a(t_stack **a, t_stack **b)
 	while (current != NULL)
 	{
 		node = current->node;
-		if (!node->above_median)
+		if (!(node->above_median))
 			node->push_cost = size_a - node->index;
 		else
 			node->push_cost = node->index;
@@ -129,9 +129,9 @@ void	set_cheapest(t_stack **a)
 		return ;
 	min_push_cost = LONG_MAX;
 	current = *a;
+	min_node = current->node;
 	while (current)
 	{
-		min_node = current->node;
 		if (current->node->push_cost < min_push_cost)
 		{
 			min_push_cost = current->node->push_cost;
