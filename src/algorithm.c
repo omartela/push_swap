@@ -15,7 +15,7 @@ void	init_nodes_a(t_stack **a, t_stack **b)
 {
 	set_median(a);
 	set_median(b);
-	set_target_a(a, b);
+	set_target_a(*a, *b);
 	calculate_push_cost_a(a, b);
 	set_cheapest(a);
 }
@@ -24,7 +24,7 @@ void	init_nodes_b(t_stack **a, t_stack **b)
 {
 	set_median(a);
 	set_median(b);
-	set_target_b(a, b);
+	set_target_b(*a, *b);
 }
 
 void	move_node_b_to_a(t_stack **a, t_stack **b)

@@ -34,21 +34,19 @@ void	set_median(t_stack **a)
 	}
 }
 
-void	set_target_a(t_stack **a, t_stack **b)
+void	set_target_a(t_stack *a, t_stack *b)
 {
-	t_stack	*current_a;
 	t_stack	*current_b;
 	t_node	*target_node;
 	long	best_value;
 
-	current_a = *a;
-	while (current_a != NULL)
+	while (a != NULL)
 	{
-		current_b = *b;
+		current_b = b;
 		best_value = LONG_MIN;
 		while (current_b != NULL)
 		{
-			if (current_b->node->value < current_a->node->value
+			if (current_b->node->value < a->node->value
 				&& current_b->node->value > best_value)
 			{
 				target_node = current_b->node;
@@ -57,28 +55,26 @@ void	set_target_a(t_stack **a, t_stack **b)
 			current_b = current_b->next;
 		}
 		if (best_value == LONG_MIN)
-			current_a->node->target_node = find_max(b);
+			a->node->target_node = find_max(&b);
 		else
-			current_a->node->target_node = target_node;
-		current_a = current_a->next;
+			a->node->target_node = target_node;
+		a = a->next;
 	}
 }
 
-void	set_target_b(t_stack **a, t_stack **b)
+void	set_target_b(t_stack *a, t_stack *b)
 {
 	t_stack	*current_a;
-	t_stack	*current_b;
 	t_node	*target_node;
 	long	best_value;
 
-	current_b = *b;
-	while (current_b != NULL)
+	while (b != NULL)
 	{
-		current_a = *a;
+		current_a = a;
 		best_value = LONG_MAX;
 		while (current_a != NULL)
 		{
-			if (current_a->node->value > current_b->node->value
+			if (current_a->node->value > b->node->value
 				&& current_a->node->value < best_value)
 			{
 				target_node = current_a->node;
@@ -87,10 +83,10 @@ void	set_target_b(t_stack **a, t_stack **b)
 			current_a = current_a->next;
 		}
 		if (best_value == LONG_MAX)
-			current_b->node->target_node = find_min(a);
+			b->node->target_node = find_min(&a);
 		else
-			current_b->node->target_node = target_node;
-		current_b = current_b->next;
+			b->node->target_node = target_node;
+		b = b->next;
 	}
 }
 

@@ -6,7 +6,7 @@
 #    By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 14:12:36 by omartela          #+#    #+#              #
-#    Updated: 2024/07/15 11:00:54 by omartela         ###   ########.fr        #
+#    Updated: 2024/07/17 09:28:32 by omartela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,20 +29,16 @@ SRC = src/operations.c \
 OBJS = $(SRC:.c=.o)
 
 CC = cc
-LIBS = src/libft/libft.a src/ft_printf/libftprintf.a
+LIBS = src/libft/libft.a
 CFLAGS = -g -Wall -Wextra -Werror -I$(INCLUDES)
 INCLUDES = includes/
 
 LIBFT_DIR = src/libft
-FT_PRINTF_DIR = src/ft_printf
 
-all: libft ft_printf $(NAME)
+all: libft $(NAME)
 
 libft:
 	@make -C $(LIBFT_DIR) && make -C $(LIBFT_DIR) bonus
-
-ft_printf:
-	@make -C $(FT_PRINTF_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -53,12 +49,10 @@ $(NAME): $(OBJS)
 clean:
 	$(RM) $(OBJS)
 	make -C $(LIBFT_DIR) clean
-	make -C $(FT_PRINTF_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
 	make -C $(LIBFT_DIR) fclean
-	make -C $(FT_PRINTF_DIR) fclean
 
 re: fclean all
 
