@@ -6,14 +6,14 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:49:15 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/15 09:49:59 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/17 09:45:02 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
 static long	string_to_integer(const char *str, int sign)
 {
-	long result;
+	long	result;
 
 	result = 0;
 	while (*str >= '0' && *str <= '9')
