@@ -6,7 +6,7 @@
 /*   By: omartela <omartela@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 07:25:24 by omartela          #+#    #+#             */
-/*   Updated: 2024/07/12 15:38:13 by omartela         ###   ########.fr       */
+/*   Updated: 2024/07/17 08:49:57 by omartela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
@@ -59,7 +59,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (check_arguments_and_init(&a, argv, argc))
 		return (1);
-	if (is_sorted(&a))
+	if (is_sorted(&a) && stack_size(a) > 1)
 	{
 		if (stack_size(a) == 2)
 			sa(&a);
