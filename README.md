@@ -72,6 +72,8 @@ This project requires:
 - Make
 - libft library (42 School's custom C library)
 
+> **Note**: This repository currently does not include the libft dependency in the `src/libft/` directory. You will need to obtain and place the libft library in `src/libft/` before compilation. The libft library should include functions like `ft_printf`, `ft_putstr_fd`, `ft_split`, and `ft_isdigit`.
+
 ### Building
 
 1. Clone the repository:
@@ -125,29 +127,31 @@ The program will output "Error" to stderr in the following cases:
 
 ## Examples
 
+> **Note**: The following examples assume you have properly set up the libft dependency. Without libft, the program will not compile.
+
 ### Example 1: Simple 3-element stack
 ```bash
 ./push_swap 3 2 1
-# Output:
-sa
-rra
+# Expected output:
+# sa
+# rra
 ```
 
 ### Example 2: Larger stack
 ```bash
 ./push_swap 5 4 3 2 1
-# Output: (sequence of operations to sort the stack)
-pb
-pb
-sa
-pa
-pa
+# Expected output: (sequence of operations to sort the stack)
+# pb
+# pb
+# sa
+# pa
+# pa
 ```
 
 ### Example 3: Already sorted
 ```bash
 ./push_swap 1 2 3 4 5
-# Output: (no operations - stack is already sorted)
+# Expected output: (no operations needed - stack is already sorted)
 ```
 
 ### Example 4: Error cases
@@ -242,7 +246,10 @@ The Turk algorithm is designed to minimize the number of operations. For referen
 
 ### Common Issues
 
-1. **libft not found**: Ensure the libft library is properly installed in `src/libft/`
+1. **libft not found**: This repository does not include the libft dependency. You need to:
+   - Clone or obtain the libft library from 42 School
+   - Place it in `src/libft/` directory
+   - Ensure it has a proper Makefile that supports `make` and `make bonus` targets
 2. **Compilation errors**: Check that GCC supports the compilation flags used
 3. **"Error" output**: Verify input format and check for duplicates or invalid characters
 
