@@ -261,7 +261,7 @@ make CFLAGS="-g -Wall -Wextra -Werror -fsanitize=address"
 
 ## Author
 
-**Omar Tela** (omartela@student.hive.fi)  
+**omartela** (omartela@student.hive.fi)  
 42 School - Hive Helsinki
 
 ## License
